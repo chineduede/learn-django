@@ -1,0 +1,28 @@
+{% extends 'reviews/base.html' %}
+
+{% block title %}
+    {% if instance %}
+        Editing {{ model_type }} {{ instance }}
+    {% else %}
+        New {{ model_type }}
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+    <h2>
+        {% if instance %}
+            Editing {{ model_type }} <em>{{ instance }}</em>
+        {% else %}
+            New {{ model_type }}
+        {% endif %}
+    </h2>
+    {% if related_model_type and related_instance %}
+    <p>For {{ related_model_type }} <em>{{ related_instance }}</em></p>
+    {% endif %}
+
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="{% if instance %}Save{% else %}Create{% endif %}" class="btn btn-primary">
+    </form>
+{% endblock %}
